@@ -1,0 +1,11 @@
+{
+  "name": "twitterTaberungoBot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "1.7.0",
+    "request-promise": "^4.2.5",
+    "twit": "2.2.11"
+  }
+}

@@ -2,7 +2,7 @@
 'use strict';
 const Twit = require('twit');
 const cron = require('cron').CronJob;
-const env = require('./env.json');
+// const env = require('./env.json');
 const getRequestJson = require('./getPromiseJson');
 const postTweet = require('./postTweet');
 //
@@ -10,10 +10,10 @@ const user_screen_name = 'taberungoBot';
 
 // Twitterアカウントを取得
 const twitter = new Twit({
-  consumer_key: env.TWITTER_API_CONSUMER_KEY,
-  consumer_secret: env.TWITTER_API_CONSUMER_SECRET,
-  access_token: env.TWITTER_API_ACCESS_TOKEN,
-  access_token_secret: env.TWITTER_API_ACCESS_TOKEN_SECRET
+  consumer_key: process.env.TWITTER_API_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_API_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_API_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_API_ACCESS_TOKEN_SECRET
 });
 
 const responses = ['んご！', 'んご', 'んごー', 'んごー！', 'んご♪', 'んご…', 'あは♪', 'こいつはりんごろう', 'こいつはりんごの精です'];

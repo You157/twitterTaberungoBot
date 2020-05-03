@@ -50,28 +50,28 @@ stream.on('error', function (error) {
 });
 
 // 定期的にｺﾝﾃﾝﾂ情報を取得します
+/**
 const cronJobContents = new cron({
   cronTime: '00 00 03 * * *', // 15時にｺﾝﾃﾝﾂを更新
   start: true,
   onTick: () => {
     getRequestJson().then((results) => {
       contents = results;
-      const outputTime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' });
-      console.log(`☆Get Contents - ${outputTime}`);;
     });
   }
 });
+ */
 
 // 定期的にﾂｲｰﾄします
+/**
 const cronJobTweet = new cron({
   cronTime: '00 00 6-23/1 * * *', // 6:00-23:00/hにﾂｲｰﾄ
   start: true,
   onTick: () => {
     postTweet(twitter, tweetText(contents));
-    const outputTime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' });
-    console.log(`☆tweet - ${outputTime}`);
   }
 });
+ */
 
 // ﾂｲｰﾄするﾃｷｽﾄを作成します
 function tweetText(contents) {
@@ -90,6 +90,6 @@ function tweetText(contents) {
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
 let contents; // Jsonを格納
 getRequestJson().then((results) => {
-  contents = results;
-  postTweet(twitter, tweetText(contents));
+  // contents = results;
+  postTweet(twitter, tweetText(results));
 });

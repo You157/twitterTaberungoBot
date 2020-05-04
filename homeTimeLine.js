@@ -3,10 +3,7 @@
 // 調査済みリスト
 let checkedTweets = [];
 
-/**
- * // ﾎｰﾑﾀｲﾑﾗｲﾝを取得する
- * @param {twitter Object} twitter 
- */
+// ﾎｰﾑﾀｲﾑﾗｲﾝを取得する
 function getHomeTimeLine(twitter) {
   twitter.get('statuses/home_timeline', {}, (error, tweets, response) => {
     if (error) console.log(error);

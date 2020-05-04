@@ -2,11 +2,9 @@
 'use strict';
 const Twit = require('twit');
 const cron = require('cron').CronJob;
-// const env = require('./env.json');
 const getRequestJson = require('./getPromiseJson');
 const postTweet = require('./postTweet');
-//
-const user_screen_name = 'taberungoBot';
+
 
 // Twitterアカウントを取得
 const twitter = new Twit({
@@ -16,6 +14,7 @@ const twitter = new Twit({
   access_token_secret: process.env.TWITTER_API_ACCESS_TOKEN_SECRET
 });
 
+/**
 const responses = ['んご！', 'んご', 'んごー', 'んごー！', 'んご♪', 'んご…', 'あは♪', 'こいつはりんごろう', 'こいつはりんごの精です'];
 // リプライにたいして反応する
 function responseHomeTimeLine(homeTimeLineTweet) {
@@ -29,10 +28,13 @@ function responseHomeTimeLine(homeTimeLineTweet) {
     throw error;
   });
 }
+ */
 
 // 指定の文字列tweetがあった時に処理する
-const stream = twitter.stream('statuses/filter', { track: `@${user_screen_name}` }); // track: 検索したい文字列
-stream.on('tweet', function (tweet) { // tweet取得時のイベント
+const stream = twitter.stream('statuses/filter', { track: `@taberungo` }); // track: 検索したい文字列
+stream.on('tweet', function (tweet) {
+  console.log(tweet);
+  /**
   const tweetMessage = '@' + tweet.user.screen_name + ' 呼んだ？　(*´ω｀*)';
   twitter.post('statuses/update', {
     status: tweetMessage, // 返信するテキスト
@@ -44,23 +46,11 @@ stream.on('tweet', function (tweet) { // tweet取得時のイベント
     .catch((error) => {
       throw error;
     });
+   */
 });
 stream.on('error', function (error) {
   throw error;
 });
-
-// 定期的にｺﾝﾃﾝﾂ情報を取得します
-/**
-const cronJobContents = new cron({
-  cronTime: '00 00 03 * * *', // 15時にｺﾝﾃﾝﾂを更新
-  start: true,
-  onTick: () => {
-    getRequestJson().then((results) => {
-      contents = results;
-    });
-  }
-});
- */
 
 // 定期的にﾂｲｰﾄします
 /**
@@ -88,8 +78,6 @@ function tweetText(contents) {
 
 
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
-let contents; // Jsonを格納
-getRequestJson().then((results) => {
-  // contents = results;
-  postTweet(twitter, tweetText(results));
+getRequestJson().then((contents) => {
+  postTweet(twitter, tweetText(contents));
 });

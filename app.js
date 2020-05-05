@@ -53,8 +53,9 @@ stream.on('error', function (error) {
 });
 
 // 定期的にﾂｲｰﾄします
+/**
 const cronJobTweet = new cron({
-  cronTime: '00 00 0-23/1 * * *', // 6:00-23:00/hにﾂｲｰﾄ
+  cronTime: '00 00 0-23/1 * * *',
   start: true,
   onTick: () => {
     getRequestJson().then((contents) => {
@@ -62,7 +63,7 @@ const cronJobTweet = new cron({
     });
   }
 });
-
+ */
 
 // ﾂｲｰﾄするﾃｷｽﾄを作成します
 function tweetText(contents) {

@@ -80,16 +80,15 @@ function tweetText(contents) {
   const title = content['title'];
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
-  const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
+  // const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
   const url = `https://nico.ms/${content['contentId']}?ref=twitter_ss`;
-  const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
+  // const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
+  const tweetText = `#たべるんごのうた\n\n${title}\n\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
   return tweetText;
 }
 
-
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
-let contents; // Jsonを格納
-getRequestJson().then((results) => {
-  // contents = results;
-  postTweet(twitter, tweetText(results));
+getRequestJson().then((contents) => {
+  // postTweet(twitter, tweetText(results));
+  console.log(contents);
 });

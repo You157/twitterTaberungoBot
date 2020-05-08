@@ -2,9 +2,10 @@
 const requestPromise = require('request-promise'); // httpﾘｸｴｽﾄを行うﾓｼﾞｭｰﾙ
 
 const search = 'たべるんごのうた'; // 検索ｷｰﾜｰﾄﾞ
-const limit = '50'; // ｺﾝﾃﾝﾂの最大取得件数
-const fields = 'contentId,title,description,viewCounter,commentCounter'
-const uri = encodeURI(`https://api.search.nicovideo.jp/api/v2/video/contents/search?q=${search}&targets=tags&fields=${fields}&filters[viewCounter][gte]=100000&_sort=-viewCounter&_limit=${limit}&_context=apiguide`);
+const limit = '500'; // ｺﾝﾃﾝﾂの最大取得件数
+const fields = 'contentId,title,viewCounter,commentCounter,tags'; // 取得する要素
+const filters = '[viewCounter][gte]=10000'; // 絞込み条件 再生数1万回以上
+const uri = encodeURI(`https://api.search.nicovideo.jp/api/v2/video/contents/search?q=${search}&targets=tags&fields=${fields}&filters${filters}&_sort=-viewCounter&_limit=${limit}&_context=apiguide`);
 
 const options = {
   uri: uri,

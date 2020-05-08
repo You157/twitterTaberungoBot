@@ -67,19 +67,27 @@ const cronJobTweet = new cron({
 
 // ﾂｲｰﾄするﾃｷｽﾄを作成します
 function tweetText(contents) {
-  const index = Math.floor(Math.random() * contents.length);
-  const content = contents[index];
+  // const index = Math.floor(Math.random() * contents.length);
+  // const content = contents[index];
+  const content = contents[0];
+  const contentId = content['contentId'];
   const title = content['title'];
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
-  const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
-  const url = `https://nico.ms/${content['contentId']}?ref=twitter_ss`;
-  const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
+  // const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
+  const tags = content['tags'].split(' ');
+  const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
+  // const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
+  let tweetText = '';
+  tags.forEach(element => {
+    tweetText += `#${element} `;
+  });
+  tweetText += `\n\n${title}\n\n再生数:${viewCounter},  コメント数:${commentCounter}\n${url}`;
   return tweetText;
 }
-
 
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
 getRequestJson().then((contents) => {
   postTweet(twitter, tweetText(contents));
+  // console.log(tweetText(contents));
 });

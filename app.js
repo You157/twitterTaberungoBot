@@ -71,11 +71,11 @@ function tweetText(contents) {
   // const content = contents[index];
   const content = contents[0];
   const contentId = content['contentId'];
-  const title = content['title'];
+  const title = content['title'].slice(0, 27);
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
   // const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
-  const tags = content['tags'].split(' ');
+  const tags = content['tags'].slice(0, 99).split(' ');
   const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
   // const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
   let tweetText = '';

@@ -74,14 +74,12 @@ function tweetText(contents) {
   const title = content['title'].slice(0, 29);
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
-  // const description = content['description'].replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').slice(0, 40);
   // const tags = content['tags'].slice(0, 99).split(' ');
   const tags = content['tags'].split(' ');
   const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
-  // const tweetText = `#たべるんごのうた\n\n${title}\n\n${description}...\n再生数：${viewCounter},  コメント数：${commentCounter}\n${url}`;
-  let tweetBody = `\n\n${title}\n\n再生数:${viewCounter},  コメント数:${commentCounter}${url}`;
-  const tweetText = checkTextLength(tags, tweetBody);
-  return tweetText;
+  let tweetBody = `\n\n${title}\n\n再生数:${viewCounter},  コメント数:${commentCounter} ${url}`;
+  const allText = checkTextLength(tags, tweetBody);
+  return allText;
 }
 
 // 投稿テキストを投稿最大文字数に揃える関数です
@@ -91,16 +89,20 @@ function checkTextLength(tags, tweetBody){
     tweetHead += `#${element} `;
   });
   let tweetText = tweetHead + tweetBody;
-  if (tweetText.length > 140) {
+  if (tweetText.length > 190) {
     tags.pop(); // tagsの末尾を削除
-    console.log(`tags:${tags} length:${tweetText.length}`);
-    checkTextLength(tags, tweetBody);
+    return checkTextLength(tags, tweetBody);
   }
   return tweetText;
-}
+  }
 
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
 getRequestJson().then((contents) => {
-  // postTweet(twitter, tweetText(contents));
-  console.log(tweetText(contents));
+  postTweet(twitter, tweetText(contents));
+  /**
+  var text = tweetText(contents);
+  console.log(`-----> tags:${contents[0]['tags']}`);
+  console.log(`-----> length:${text.length}`);
+  console.log(text);
+   */
 });

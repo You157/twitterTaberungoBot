@@ -4,6 +4,7 @@ const Twit = require('twit');
 const cron = require('cron').CronJob;
 const getRequestJson = require('./getPromiseJson');
 const postTweet = require('./postTweet');
+const dateformat = require('dateformat');
 
 
 // Twitterアカウントを取得
@@ -74,10 +75,11 @@ function tweetText(contents) {
   const title = content['title'].slice(0, 29);
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
+  const startTime = dateformat(content['startTime'], 'yyyy/mm/dd HH:MM');
   // const tags = content['tags'].slice(0, 99).split(' ');
   const tags = content['tags'].split(' ');
   const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
-  let tweetBody = `\n\n${title}\n\n再生数:${viewCounter},  コメント数:${commentCounter} ${url}`;
+  let tweetBody = `\n\n${title}\n\n投稿日時:${startTime}, 再生数:${viewCounter}, コメント数:${commentCounter} ${url}`;
   const allText = checkTextLength(tags, tweetBody);
   return allText;
 }
@@ -99,10 +101,10 @@ function checkTextLength(tags, tweetBody){
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
 getRequestJson().then((contents) => {
   postTweet(twitter, tweetText(contents));
-  /**
-  var text = tweetText(contents);
-  console.log(`-----> tags:${contents[0]['tags']}`);
-  console.log(`-----> length:${text.length}`);
-  console.log(text);
-   */
+  
+  // var text = tweetText(contents);
+  // console.log(`-----> tags:${contents[0]['tags']}`);
+  // console.log(`-----> length:${text.length}`);
+  // console.log(text);
+
 });

@@ -75,11 +75,11 @@ function tweetText(contents) {
   const title = content['title'].slice(0, 29);
   const viewCounter = content['viewCounter'];
   const commentCounter = content['commentCounter'];
-  const startTime = dateformat(content['startTime'], 'yyyy/mm/dd HH:MM');
+  const startTime = dateformat(content['startTime'], 'yyyy/mm/dd');
   // const tags = content['tags'].slice(0, 99).split(' ');
   const tags = content['tags'].split(' ');
   const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
-  let tweetBody = `\n\n${title}\n\n投稿日時:${startTime}, 再生数:${viewCounter}, コメント数:${commentCounter} ${url}`;
+  let tweetBody = `\n\n${title}\n\n投稿日:${startTime}, 再生数:${viewCounter}, コメント数:${commentCounter} ${url}`;
   const allText = checkTextLength(tags, tweetBody);
   return allText;
 }

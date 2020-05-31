@@ -2,7 +2,7 @@
 const requestPromise = require('request-promise'); // httpﾘｸｴｽﾄを行うﾓｼﾞｭｰﾙ
 
 const search = 'たべるんごのうた'; // 検索ｷｰﾜｰﾄﾞ
-const offset = String(Math.floor(Math.random() * (410 + 1))); // ﾗﾝﾀﾞﾑな整数を生成
+const offset = String(Math.floor(Math.random() * (490 + 1))); // ﾗﾝﾀﾞﾑな整数を生成
 const limit = '1'; // ｺﾝﾃﾝﾂの最大取得件数
 const fields = 'contentId,title,viewCounter,commentCounter,tags,startTime'; // 取得する要素
 const filters = '[viewCounter][gte]=10000'; // 絞込み条件 再生数1万回以上

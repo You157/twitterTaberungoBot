@@ -68,18 +68,22 @@ const cronJobTweet = new cron({
 
 // ﾂｲｰﾄするﾃｷｽﾄを作成します
 function tweetText(contents) {
-  // const index = Math.floor(Math.random() * contents.length);
-  // const content = contents[index];
   const content = contents[0];
   const contentId = content['contentId'];
-  const title = content['title'].slice(0, 29);
-  const viewCounter = content['viewCounter'];
-  const commentCounter = content['commentCounter'];
+  // const title = content['title'].slice(0, 29);
+  const counter = (num,i)=>{
+    if(String(num).length>=i){
+      return(`${String(num).slice(0,-4)}万`);
+    }
+    return num;
+  }
+  // const viewCounter = content['viewCounter'];
+  const viewCounter = counter(content['viewCounter'],6);
+  // const commentCounter = content['commentCounter'];
+  const commentCounter =counter(content['commentCounter'],5);
   const startTime = dateformat(content['startTime'], 'yyyy/mm/dd');
-  // const tags = content['tags'].slice(0, 99).split(' ');
   const tags = content['tags'].split(' ');
   const url = `https://nico.ms/${contentId}?ref=twitter_ss`;
-  // let tweetBody = `\n\n${title}\n\n投稿日:${startTime}, 再生数:${viewCounter}, コメント数:${commentCounter} ${url}`;
   let tweetBody = `\n\n投稿日:${startTime}, 再生数:${viewCounter}, コメント数:${commentCounter} ${url}`;
   const allText = checkTextLength(tags, tweetBody);
   return allText;
@@ -102,10 +106,5 @@ function checkTextLength(tags, tweetBody){
 // ﾌﾟﾛｸﾞﾗﾑ起動時にｺﾝﾃﾝﾂ取得とﾂｲｰﾄを行います
 getRequestJson().then((contents) => {
   postTweet(twitter, tweetText(contents));
-  
-  // var text = tweetText(contents);
-  // console.log(`-----> tags:${contents[0]['tags']}`);
-  // console.log(`-----> length:${text.length}`);
-  // console.log(text);
-
+  // console.log(tweetText(contents));
 });
